@@ -8,20 +8,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class SaladMailSender extends JavaMailSenderImpl {
 
-	public SaladMailSender() {
-		final String username = "isyrshopping@gmail.com";
-		final String password = "pass123$$";
+    public SaladMailSender() {
 
-		Properties props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-		props.put("mail.user", username);
-		props.put("mail.password", password);
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", Conf.getEnv().getProperty("mail.auth.boolean"));
+        props.put("mail.smtp.host", Conf.getEnv().getProperty("mail.host"));
+        props.put("mail.smtp.port", Conf.getEnv().getProperty("mail.port"));
+        props.put("mail.user", Conf.getEnv().getProperty("mail.username"));
+        props.put("mail.password", Conf.getEnv().getProperty("mail.password"));
 
-		setJavaMailProperties(props);
-		setUsername(username);
-		setPassword(password);
-	}
+        setJavaMailProperties(props);
+        setUsername(Conf.getEnv().getProperty("mail.username"));
+        setPassword(Conf.getEnv().getProperty("mail.password"));
+    }
+
 }

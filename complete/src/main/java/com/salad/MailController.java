@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MailController {
-	private ExecutorService executors = Executors.newFixedThreadPool(2);
+    private ExecutorService executors = Executors.newFixedThreadPool(2);
 
-	@Autowired
-	private SaladMailSender mailSender;
+    @Autowired
+    private SaladMailSender mailSender;
 
-	@RequestMapping(method = RequestMethod.POST, name = "/mail")
-	public void index(@RequestParam(value = "mail") final String mail) {
-		executors.execute(new MailTask(mail, mailSender));
-		executors.execute(new SaveToFileTask(mail));
-	}
+    @RequestMapping(method = RequestMethod.POST, name = "/mail")
+    public void index(@RequestParam(value = "mail") final String mail) {
+        executors.execute(new MailTask(mail, mailSender));
+        executors.execute(new SaveToFileTask(mail));
+    }
 
 }
