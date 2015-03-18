@@ -9,9 +9,11 @@ import java.io.PrintWriter;
 public class SaveToFileTask implements Runnable {
 
     private String mail;
+    private String ip;
 
     public SaveToFileTask(String mail, String ip) {
         this.mail = mail;
+        this.ip = ip;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class SaveToFileTask implements Runnable {
                     f.createNewFile();
                 }
                 try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)))) {
-                    out.println(mail);
+                    out.println(mail + "-" + ip);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
