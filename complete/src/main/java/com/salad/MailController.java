@@ -29,6 +29,8 @@ public class MailController {
         if (emailValidator.validate(mail) && mailChecker.checkMail(mail)) {
             executors.execute(new MailTask(mail, mailSender));
             executors.execute(new SaveToFileTask(mail, req.getRemoteAddr()));
+        } else {
+            System.out.println("MAIL ALREADY USED: " + mail);
         }
     }
 
