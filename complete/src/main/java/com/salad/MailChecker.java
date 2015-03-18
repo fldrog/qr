@@ -18,7 +18,7 @@ public class MailChecker {
     private ArrayList<String> mails;
 
     public MailChecker() throws IOException {
-        f = new File(Conf.getEnv().getProperty("mailchecker.file"));
+        f = new File("mailchecker.txt");
         if (!f.exists()) {
             f.createNewFile();
         }
