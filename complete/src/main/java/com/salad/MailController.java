@@ -26,10 +26,9 @@ public class MailController {
 
     @RequestMapping(method = RequestMethod.POST, name = "/mail")
     public void index(HttpServletRequest req, @RequestParam(value = "mail") final String mail) {
-        System.out.println(req.getHeader("X-Forwarded-For"));
         if (emailValidator.validate(mail) && mailChecker.checkMail(mail)) {
             executors.execute(new MailTask(mail, mailSender));
-            executors.execute(new SaveToFileTask(mail, req.getRemoteAddr()));
+            executors.execute(new SaveToFileTask(mail, req.getHeader("X-Forwarded-For")));
         } else {
             System.out.println("MAIL ALREADY USED: " + mail);
         }
