@@ -10,7 +10,7 @@ public class SaveToFileTask implements Runnable {
 
     private String mail;
 
-    public SaveToFileTask(String mail) {
+    public SaveToFileTask(String mail, String ip) {
         this.mail = mail;
     }
 

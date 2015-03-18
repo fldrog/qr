@@ -3,6 +3,8 @@ package com.salad;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,10 +18,18 @@ public class MailController {
     @Autowired
     private SaladMailSender mailSender;
 
+    @Autowired
+    private MailChecker mailChecker;
+
+    @Autowired
+    private EmailValidator emailValidator;
+
     @RequestMapping(method = RequestMethod.POST, name = "/mail")
-    public void index(@RequestParam(value = "mail") final String mail) {
-        executors.execute(new MailTask(mail, mailSender));
-        executors.execute(new SaveToFileTask(mail));
+    public void index(HttpServletRequest req, @RequestParam(value = "mail") final String mail) {
+        if (emailValidator.validate(mail) && mailChecker.checkMail(mail)) {
+            executors.execute(new MailTask(mail, mailSender));
+            executors.execute(new SaveToFileTask(mail, req.getRemoteAddr()));
+        }
     }
 
 }
