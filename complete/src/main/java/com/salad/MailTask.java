@@ -61,7 +61,7 @@ public class MailTask implements Runnable {
 
         // first part (the html)
         BodyPart messageBodyPart = new MimeBodyPart();
-        String htmlText = "<H1>Hello</H1><img src=\"cid:image\">";
+        String htmlText = "<H1>Present this coupon and receive one FREE salad. We'll let you know where to find us as soon as we open. In order to unsubscribe reply to this message with UNSUBSCRIBE in the subject.</H1><img src=\"cid:image\"> <h1> See you soon !</h1>";
         messageBodyPart.setContent(htmlText, "text/html");
 
         // add it
